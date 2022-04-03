@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include("templates/header.ejs") %>
+    <title>Editar Voluntario</title>
+</head>
+<body>
+    
+    <div class="container p-2">
+        <div class="row justify-content-center p-4 pt-2">
+            <div class="col-md-4">
+                <h3 class="text-center pb-2">Editar voluntario</h3>
+                <div class="card">
+                    <form id="edit-form" class="card-body" method="post" action="/admin/edit/voluntario/<%= voluntario.CEDULA %>">
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input name="restablecer-pass" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">Restablecer contraseña</label>
+                                </div>
+                            </div>
+                            <label htmlFor="input-cedula" class="form-label">Cédula</label>
+                            <input name="nuevaCedula" type="text" class="form-control" id="input-cedula" value="<%= voluntario.CEDULA %>" required></input>
+                        </div>
+                        <div class="mb-3">
+                            <label htmlFor="input-nombre" class="form-label">Nombre</label>
+                            <input name="apellidos" type="text" class="form-control" id="input-nombre" value="<%= voluntario.APELLIDOS %>" required></input>
+                        </div>
+                        <div class="mb-3">
+                            <label htmlFor="input-codigo" class="form-label">Código</label>
+                            <input name="codigo" type="text" class="form-control" id="input-codigo" value="<%= voluntario.CODIGO %>" required></input>
+                        </div>
+                        <div class="mb-3">
+                            <label htmlFor="input-rol" class="form-label">Rol</label>
+                            <select name="isadmin" type="text" class="form-control" id="input-rol" required>
+                                <option value="0" <% if(voluntario.ESADMIN == 0) { %> selected <% } %>>Voluntario</option>
+                                <option value="1" <% if(voluntario.ESADMIN == 1) { %> selected <% } %>>Administrador</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label htmlFor="input-correo" class="form-label">Correo</label>
+                            <input name="correo" type="email" class="form-control" id="input-correo" value="<%= voluntario.CORREO %>"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label htmlFor="input-celular" class="form-label">Celular</label>
+                            <input name="whatsapp" type="text" class="form-control" id="input-celular" value="<%= voluntario.WHATSAPP %>" required></input>
+                        </div>
+                        <div class="text-center">
+                            <button style="display:none" id="save-btn" type="submit" class="btn btn-primary">Guardar</button>
+                            <a href="/admin/voluntarios" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/form_edit_handler.js"></script>
+</body>
+</html>

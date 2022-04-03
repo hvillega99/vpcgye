@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include("templates/header.ejs") %>
+    <title>Editar actividad</title>
+</head>
+<body>
+    
+    <div class="container p-2">
+        <div class="row justify-content-center p-4 pt-2">
+            <div class="col-md-4">
+                <h3 class="text-center pb-2">Editar actividad</h3>
+                <div class="card">
+                    <form id="edit-form" class="card-body" method="post" action="/admin/edit/actividad/<%= actividad.ID %>">
+                        <div class="mb-1">
+                            <label htmlFor="input-voluntario" class="form-label">Voluntario</label>
+                            <input name="apellidos" type="text" class="form-control" id="input-voluntario" value="<%= actividad.APELLIDOS %>" required></input>
+                        </div>
+                        <div class="mb-1">
+                            <label htmlFor="input-actividad" class="form-label">Actividad</label>
+                            <textarea name="actividad" type="text" class="form-control" id="input-actividad" required><%= actividad.ACTIVIDAD %></textarea>
+                        </div>
+                        <div class="mb-1">
+                            <label htmlFor="input-fecha" class="form-label">Fecha</label>
+                            <input name="fecha" type="text" class="form-control" id="input-fecha" value="<%= actividad.FECHA %>" required></input>
+                        </div>
+                        <div class="mb-1">
+                            <label htmlFor="input-grupo" class="form-label">Grupo</label>
+                            <input name="grupo" type="text" class="form-control" id="input-grupo" value="<%= actividad.GRUPO %>" required></input>
+                        </div>
+                        <div class="mb-1">
+                            <label htmlFor="input-horas" class="form-label">Horas</label>
+                            <input name="horas" type="text" class="form-control" id="input-celular" value="<%= actividad.HORAS %>" requiredinput>
+                        </div>
+                        <div class="mb-1">
+                            <label htmlFor="input-turno" class="form-label">Turno</label>
+                            <input name="turno" type="text" class="form-control" id="input-turno" value="<%= actividad.TURNO %>" required></input>
+                        </div>
+                        <div class="text-center">
+                            <button style="display:none" id="save-btn" type="submit" class="btn btn-primary">Guardar</button>
+                            <a href="/admin" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/form_edit_handler.js"></script>
+</body>
+</html>

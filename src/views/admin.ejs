@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="icon" href="/img/vpc-logo.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/css/table.css">
+    <title>VPC App</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                VPC Admin
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/admin">Actividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/voluntarios">Voluntarios</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <button class="btn btn-dark btn-sm dropdown-toggle d-flex" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/img/options.ico" alt="options"></img>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                        <li class="dropdown-item disabled"><%= nombre%></li>
+                        <li><a class="dropdown-item" href="/home">Mis actividades</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/auth/logout">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row p-4">
+
+            <% if(flashMessage.show) { %>
+
+                <div class="alert alert-<%= flashMessage.type%> alert-dismissible fade show" role="alert">
+                    <p class="text-center">
+                        <%= flashMessage.message%> 
+                    </p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+            <% } %>
+
+            <div class="col-md-7">
+                <h3 class="pb-2 text-center">Actividades</h3>
+                <input class="form-control mb-2" id="finder-actividad" placeholder="Buscar por actividad"></input>
+                <table class="table fixed_header">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Actividad</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="elements" id="table-body">
+
+
+                        <% for(let i = 0; i < actividades.length; i++){%>
+                            <tr class="table-item" id="<%= actividades[i].ID %>">
+                                <td><%= i+1 %></td>
+                                <td class="actividad"><%= actividades[i].ACTIVIDAD %></td>
+                                <td><%= actividades[i].FECHA %></td>
+                                <td class="d-flex">
+                                    <a href="/admin/edit/actividad/<%= actividades[i].ID %>" data-bs-toggle="tooltip" title="Editar">
+                                        <img class="btn btn-primary me-1" src="/img/edit.png"/>
+                                    </a>
+                                    
+                                    <img class="btn btn-danger delete-unit" src="/img/delete.png" 
+                                        onclick="deleteActivity(<%= actividades[i].ID %>)"
+                                        data-bs-toggle="tooltip" title="Eliminar"
+                                    />
+                                </td>
+                                
+                            </tr>
+                        <% }%>
+
+                            
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-5">
+                <h3 class="pb-2 text-center">Nueva actividad</h3>
+                <div class="card">
+                    <form class="card-body" method="post" action="/admin">
+                        <div class="mb-1">
+                            <label htmlFor="input-voluntario" class="form-label">Voluntario</label>
+                            <input name="apellidos" type="text" class="form-control" id="input-voluntario" required></input>
+                        </div>
+                        <div class="mb-1">
+                            <label htmlFor="input-actividad" class="form-label">Actividad</label>
+                            <textarea name="actividad" type="text" class="form-control" id="input-actividad" required></textarea>
+                        </div>
+                        <div class="mb-1">
+                            <label htmlFor="input-fecha" class="form-label">Fecha</label>
+                            <input name="fecha" type="date" class="form-control" id="input-fecha" required></input>
+                        </div>
+                        <div class="mb-1">
+                            <label htmlFor="input-grupo" class="form-label">Grupo</label>
+                            <input name="grupo" type="text" class="form-control" id="input-grupo" required></input>
+                        </div>
+                        <div class="mb-1">
+                            <label htmlFor="input-horas" class="form-label">Horas</label>
+                            <input name="horas" type="text" class="form-control" id="input-celular" requiredinput>
+                        </div>
+                        <div class="mb-1">
+                            <label htmlFor="input-turno" class="form-label">Turno</label>
+                            <input name="turno" type="text" class="form-control" id="input-turno" required></input>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                            <div id="div-cancel">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/finder_actividades.js"></script>
+    <script type="text/javascript" src="/js/delete_actividades.js"></script>
+
+</body>
+</html>

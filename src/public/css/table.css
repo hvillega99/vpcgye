@@ -1,0 +1,30 @@
+.fixed_header{
+    width: 100%;
+    table-layout: fixed;
+}
+
+.fixed_header tbody{
+    display:block;
+    width: 100%;
+    overflow: auto;
+    height: 60vh;
+}
+
+.fixed_header thead tr {
+    display: block;
+}
+
+.fixed_header th, .fixed_header td {
+    text-align: left;
+    width: 30%;
+}
+
+
+.item:hover{
+    background-color: #cfe2ff;
+    cursor:pointer;
+}
+
+.item:active{
+    background-color: rgba(33, 58, 143, 0.2);
+}

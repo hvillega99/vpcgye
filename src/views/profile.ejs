@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include("templates/header.ejs") %>
+    <title>Perfil</title>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                VPC App
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Actividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/home/perfil">Perfil</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <button class="btn btn-dark btn-sm dropdown-toggle d-flex" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/img/options.ico" alt="options"></img>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+    
+                        <li class="dropdown-item disabled"><%= nombre%></li>
+    
+                        <% if(isAdmin){ %>
+                            <li><a class="dropdown-item" href="/admin">Administrar</a></li>
+                        <% } %>
+                            
+                        <li><hr class="dropdown-divider"></li>
+    
+                        <li><a class="dropdown-item" href="/auth/logout">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container p-2">
+        <div class="row justify-content-center p-4">
+            <% if(flashMessage.show) { %>
+
+                <div class="alert alert-<%= flashMessage.type%> alert-dismissible fade show" role="alert">
+                    <p class="text-center">
+                        <%= flashMessage.message%> 
+                    </p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+            <% } %>
+            <div class="col-md-4">
+                <h3 class="pb-2 text-center">Datos personales</h3>
+                <div class="card">
+                    <form id="edit-form" class="card-body" method="post" action="/home/perfil/<%= cedula %>">
+                        <div class="mb-3">
+                            <label htmlFor="input-nombre" class="form-label">Nombre</label>
+                            <input name="apellidos" type="text" class="form-control" id="input-nombre" required value="<%= nombre %>" disabled></input>
+                        </div>
+                        <div class="mb-3">
+                            <label htmlFor="input-codigo" class="form-label">Código</label>
+                            <input name="codigo" type="text" class="form-control" id="input-codigo" required value="<%= codigo %>" disabled></input>
+                        </div>
+                        <div class="mb-3">
+                            <label htmlFor="input-cedula" class="form-label">Cédula</label>
+                            <input name="cedula" type="text" class="form-control" id="input-cedula" required value="<%= cedula %>" disabled></input>
+                        </div>
+                        <div class="mb-3">
+                            <label htmlFor="input-correo" class="form-label">Correo</label>
+                            <input name="correo" type="email" class="form-control" id="input-correo" value="<%= correo %>"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label htmlFor="input-celular" class="form-label">Celular</label>
+                            <input name="whatsapp" type="text" class="form-control" id="input-celular" required value="<%= celular %>"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label htmlFor="input-password" class="form-label">Nueva contraseña</label>
+                            <input name="password" type="password" class="form-control" id="input-password"></input>
+                        </div>
+                        <div class="text-center">
+                            <button style="display:none" id="save-btn" type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/form_edit_handler.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include("templates/header.ejs") %>
+    <link rel="stylesheet" type="text/css" href="/css/table.css">
+    <title>VPC App</title>
+</head>
+<body>  
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                VPC App
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/home">Actividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home/perfil">Perfil</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <button class="btn btn-dark btn-sm dropdown-toggle d-flex" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/img/options.ico" alt="options"></img>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+    
+                        <li class="dropdown-item disabled"><%= nombre%></li>
+    
+                        <% if(isAdmin){ %>
+                            <li><a class="dropdown-item" href="/admin">Administrar</a></li>
+                        <% } %>
+                            
+                        <li><hr class="dropdown-divider"></li>
+    
+                        <li><a class="dropdown-item" href="/auth/logout">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row p-4">
+            <div class="col-md-7">
+                <h3 class="pb-2 text-center">Actividades</h3>
+                <table class="table fixed_header">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Actividad</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Grupo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="elements" id="table-body">
+
+
+                        <% for(let i = 0; i < actividades.length; i++){%>
+                            <tr class="table-item item" id="<%= actividades[i].ID %>">
+                                <td><%= i+1 %></td>
+                                <td><%= actividades[i].ACTIVIDAD %></td>
+                                <td><%= actividades[i].FECHA %></td>
+                                <td><%= actividades[i].GRUPO %></td>
+                                
+                            </tr>
+                        <% }%>
+
+                            
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-5">
+                <h3 class="pb-2 text-center">Detalles</h3>
+                <div class="card">
+                    <div class="card-body" id="actividad-detalle">
+                        <div class="text-center">
+                            <p><strong>Seleccione una actividad de la tabla</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/home.js"></script>
+</body>
+</html>
